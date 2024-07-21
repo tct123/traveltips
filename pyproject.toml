@@ -18,25 +18,15 @@ requires = [
     # "../../toga/core",
 ]
 sources = ["src/traveltips"]
+test_sources = ["tests"]
+test_requires = ["pytest"]
 
 [tool.briefcase.app.traveltips.macOS]
-requires = [
-    # "../../toga/cocoa",
-    "toga-cocoa~=0.4.5",
-    "std-nslog~=1.0.0",
-]
-
-[tool.briefcase.app.traveltips.windows]
-requires = [
-    # "../../toga/winforms"
-    "toga-winforms~=0.4.5",
-]
+universal_build = true
+requires = ["toga-cocoa~=0.4.5", "std-nslog~=1.0.0"]
 
 [tool.briefcase.app.traveltips.linux]
-requires = [
-    # "../../toga/gtk"
-    "toga-gtk~=0.4.5",
-]
+requires = ["toga-gtk~=0.4.5"]
 
 [tool.briefcase.app.traveltips.linux.system.debian]
 system_requires = [
@@ -47,11 +37,13 @@ system_requires = [
 ]
 
 system_runtime_requires = [
-    # Needed to provide GTK
-    "libgtk-3-0",
-    # Needed to provide GI bindings to GTK
-    "libgirepository-1.0-1",
+    # Needed to provide GTK and its GI bindings
     "gir1.2-gtk-3.0",
+    "libgirepository-1.0-1",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-module",
+    # Needed to provide WebKit2 at runtime
+    # "gir1.2-webkit2-4.0",
 ]
 
 [tool.briefcase.app.traveltips.linux.system.rhel]
@@ -67,6 +59,31 @@ system_runtime_requires = [
     "gobject-introspection",
     # Needed to provide GTK
     "gtk3",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk3",
+]
+
+[tool.briefcase.app.traveltips.linux.system.suse]
+system_requires = [
+    # Needed to compile pycairo wheel
+    "cairo-devel",
+    # Needed to compile PyGObject wheel
+    "gobject-introspection-devel",
+]
+
+system_runtime_requires = [
+    # Needed to provide GTK
+    "gtk3",
+    # Needed to support Python bindings to GTK
+    "gobject-introspection",
+    "typelib(Gtk)=3.0",
+    # Dependencies that GTK looks for at runtime
+    "libcanberra-gtk3-0",
+    # Needed to provide WebKit2 at runtime
+    # "libwebkit2gtk3",
+    # "typelib(WebKit2)",
 ]
 
 [tool.briefcase.app.traveltips.linux.system.arch]
@@ -81,6 +98,8 @@ system_requires = [
     "gtk3",
     # Dependencies that GTK looks for at runtime
     "libcanberra",
+    # Needed to provide WebKit2
+    # "webkit2gtk",
 ]
 
 system_runtime_requires = [
@@ -90,6 +109,8 @@ system_runtime_requires = [
     "gobject-introspection-runtime",
     # Dependencies that GTK looks for at runtime
     "libcanberra",
+    # Needed to provide WebKit2 at runtime
+    # "webkit2gtk",
 ]
 
 [tool.briefcase.app.traveltips.linux.appimage]
@@ -108,30 +129,19 @@ system_requires = [
     "PackageKit-gtk3-module",
     "gvfs-client",
 ]
-linuxdeploy_plugins = [
-    "DEPLOY_GTK_VERSION=3 gtk",
-]
+linuxdeploy_plugins = ["DEPLOY_GTK_VERSION=3 gtk"]
 
 [tool.briefcase.app.traveltips.linux.flatpak]
-
 flatpak_runtime = "org.gnome.Platform"
 flatpak_runtime_version = "44"
 flatpak_sdk = "org.gnome.Sdk"
 
+[tool.briefcase.app.traveltips.windows]
+requires = ["toga-winforms~=0.4.5"]
+
+# Mobile deployments
 [tool.briefcase.app.traveltips.iOS]
-requires = [
-    # 1.2.0 release: using a local branch of Toga, 0.3.2.dev1135+g564927821
-    # Mainline @ 037084b11, with PRs #2025, #2029, #2075 merged in.
-    # "../../toga/iOS",
-    "toga-iOS~=0.4.5",
-    "std-nslog~=1.0.0",
-]
-icon = "icons/iOS/traveltips"
-splash = "splash/iOS/traveltips"
-
-# support_package = "../../support/Python-Apple-support/dist/Python-3.11-iOS-support.custom.tar.gz"
-# template = "../../templates/briefcase-iOS-Xcode-template"
-
+requires = ["toga-iOS~=0.4.5", "std-nslog~=1.0.0"]
 cleanup_paths = [
     "Support/python-stdlib/lib-dynload/_bisect.*.dylib",
     "Support/python-stdlib/lib-dynload/_blake2.*.dylib",
@@ -198,18 +208,17 @@ cleanup_paths = [
     "Support/python-stdlib/lib-dynload/zlib.*.dylib",
 ]
 
+
 [tool.briefcase.app.traveltips.android]
-requires = [
-    # 1.2.0 release: using the main branch of Toga, 0.3.2.dev960+g037084b11
-    # "../../toga/android"
-    "toga-android~=0.4.5",
-]
-icon = "icons/android/traveltips"
-splash = "splash/android/traveltips"
+requires = ["toga-android~=0.4.5"]
 
+build_gradle_dependencies = [
+    "androidx.appcompat:appcompat:1.0.2",
+    "androidx.constraintlayout:constraintlayout:1.1.3",
+    "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
+]
+
+# Web deployments
 [tool.briefcase.app.traveltips.web]
-
-requires = [
-    "toga-web~=0.4.5",
-]
+requires = ["toga-web~=0.4.5"]
 style_framework = "Shoelace v2.3"
