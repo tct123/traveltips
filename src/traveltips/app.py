@@ -57,7 +57,6 @@ FOREX = {str(currency): currency for currency in CURRENCIES}
 
 
 class TravelTips(toga.App):
-    toga.Font.register("Clayborn", "resources/Clayborn.ttf")
     def calculate(self):
         try:
             self.my_tip_label.text = self.tip_rate.value
@@ -89,6 +88,7 @@ class TravelTips(toga.App):
         self.calculate()
 
     def startup(self):
+        toga.Font.register("Clayborn", "resources/Clayborn.ttf")
         self.main_window = toga.MainWindow(title=self.formal_name, size=(320, 568))
         box = toga.Box(style=Pack(direction=COLUMN, padding=5))
         local_box = toga.Box(style=Pack(padding=(20, 0, 5, 0), alignment=CENTER))
