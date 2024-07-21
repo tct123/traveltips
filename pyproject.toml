@@ -22,20 +22,20 @@ sources = ["src/traveltips"]
 [tool.briefcase.app.traveltips.macOS]
 requires = [
     # "../../toga/cocoa",
-    "toga-cocoa~=0.3.1",
+    "toga-cocoa~=0.4.5",
     "std-nslog~=1.0.0",
 ]
 
 [tool.briefcase.app.traveltips.windows]
 requires = [
     # "../../toga/winforms"
-    "toga-winforms~=0.3.1",
+    "toga-winforms~=0.4.5",
 ]
 
 [tool.briefcase.app.traveltips.linux]
 requires = [
     # "../../toga/gtk"
-    "toga-gtk~=0.3.1",
+    "toga-gtk~=0.4.5",
 ]
 
 [tool.briefcase.app.traveltips.linux.system.debian]
@@ -123,7 +123,7 @@ requires = [
     # 1.2.0 release: using a local branch of Toga, 0.3.2.dev1135+g564927821
     # Mainline @ 037084b11, with PRs #2025, #2029, #2075 merged in.
     # "../../toga/iOS",
-    "toga-iOS~=0.3.1",
+    "toga-iOS~=0.4.5",
     "std-nslog~=1.0.0",
 ]
 icon = "icons/iOS/traveltips"
@@ -202,7 +202,7 @@ cleanup_paths = [
 requires = [
     # 1.2.0 release: using the main branch of Toga, 0.3.2.dev960+g037084b11
     # "../../toga/android"
-    "toga-android~=0.3.1",
+    "toga-android~=0.4.5",
 ]
 icon = "icons/android/traveltips"
 splash = "splash/android/traveltips"
@@ -210,6 +210,6 @@ splash = "splash/android/traveltips"
 [tool.briefcase.app.traveltips.web]
 
 requires = [
-    "toga-web~=0.3.1",
+    "toga-web~=0.4.5",
 ]
 style_framework = "Shoelace v2.3"
