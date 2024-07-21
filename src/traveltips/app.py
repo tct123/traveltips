@@ -57,7 +57,7 @@ FOREX = {str(currency): currency for currency in CURRENCIES}
 
 
 class TravelTips(toga.App):
-    toga.Font.register("Clayborn", "resources/fonts/Clayborn.ttf")
+    toga.Font.register("Clayborn", "resources/Clayborn.ttf")
     def calculate(self):
         try:
             self.my_tip_label.text = self.tip_rate.value
