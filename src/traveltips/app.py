@@ -1,8 +1,6 @@
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, BOLD, RIGHT, CENTER
-
-
 class Currency:
     def __init__(self, name, symbol, forex, format="%.2f"):
         self.name = name
@@ -59,6 +57,7 @@ FOREX = {str(currency): currency for currency in CURRENCIES}
 
 
 class TravelTips(toga.App):
+    toga.Font.register("Clayborn", "resources/fonts/Clayborn.ttf")
     def calculate(self):
         try:
             self.my_tip_label.text = self.tip_rate.value
@@ -99,7 +98,7 @@ class TravelTips(toga.App):
                 style=Pack(
                     width=120,
                     padding_right=5,
-                    font_family="Helvetica",
+                    font_family="Clayborn",
                     font_size=16,
                     font_weight=BOLD,
                     text_align=RIGHT,
@@ -117,7 +116,7 @@ class TravelTips(toga.App):
             on_change=self.on_change,
             min=0,
             step="0.01",
-            style=Pack(font_family="Helvetica", font_size=48, text_align=RIGHT),
+            style=Pack(font_family="Clayborn", font_size=48, text_align=RIGHT),
         )
         box.add(self.amount)
         tip_box = toga.Box(style=Pack(padding_top=10))
@@ -141,7 +140,7 @@ class TravelTips(toga.App):
                 style=Pack(
                     width=120,
                     padding_right=5,
-                    font_family="Helvetica",
+                    font_family="Clayborn",
                     font_size=16,
                     font_weight=BOLD,
                     text_align=RIGHT,
@@ -157,7 +156,7 @@ class TravelTips(toga.App):
         box.add(my_box)
         self.my_amount = toga.TextInput(
             readonly=True,
-            style=Pack(font_family="Helvetica", font_size=48, text_align=RIGHT),
+            style=Pack(font_family="Clayborn", font_size=48, text_align=RIGHT),
         )
         box.add(self.my_amount)
         my_tip_box = toga.Box(style=Pack(padding_top=10))
