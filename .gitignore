@@ -44,8 +44,8 @@ lib64/
 parts/
 sdist/
 var/
-*.egg-info/
 *.dist-info/
+*.egg-info/
 .installed.cfg
 *.egg
 
@@ -57,14 +57,7 @@ var/
 *.iws
 ## mpeltonen/sbt-idea plugin
 .idea_modules/
-.vscode
 
-/venv*/
-
-# Briefcase build directories
-build/
+# Briefcase log files
 logs/
-
-# Buid artefacts and keystores
-*.jks
-*.pem
+*.csv#

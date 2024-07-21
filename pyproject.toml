@@ -7,6 +7,7 @@ bundle = "com.keith-magee"
 version = "1.2.0"
 author = "Russell Keith-Magee"
 author_email = "russell@keith-magee.com"
+license.file = "LICENSE"
 requires = []
 icon = "src/traveltips/resources/traveltips"
 splash = "splash/traveltips"

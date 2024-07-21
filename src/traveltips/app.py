@@ -236,7 +236,3 @@ class TravelTips(toga.App):
 
 def main():
     return TravelTips()
-
-
-if __name__ == '__main__':
-    main().main_loop()
