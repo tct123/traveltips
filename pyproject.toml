@@ -10,7 +10,6 @@ author_email = "russell@keith-magee.com"
 license.file = "LICENSE"
 requires = []
 icon = "src/traveltips/resources/traveltips"
-splash = "splash/traveltips"
 
 [tool.briefcase.app.traveltips]
 formal_name = "Travel Tips"

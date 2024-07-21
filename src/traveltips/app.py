@@ -81,7 +81,7 @@ class TravelTips(toga.App):
             self.my_tip.value = value
             self.my_tip_total.value = value
 
-    def on_select(self, widget):
+    def on_change(self, widget):
         self.calculate()
 
     def on_change(self, widget):
@@ -107,7 +107,7 @@ class TravelTips(toga.App):
         )
         self.local_currency = toga.Selection(
             items=[str(c) for c in CURRENCIES],
-            on_select=self.on_select,
+            on_change=self.on_change,
             style=Pack(flex=1),
         )
         local_box.add(self.local_currency)
@@ -121,7 +121,7 @@ class TravelTips(toga.App):
         box.add(self.amount)
         tip_box = toga.Box(style=Pack(padding_top=10))
         self.tip_rate = toga.Selection(
-            items=["20%", "15%", "10%"], on_select=self.on_select, style=Pack(flex=1)
+            items=["20%", "15%", "10%"], on_change=self.on_change, style=Pack(flex=1)
         )
         tip_box.add(self.tip_rate)
         self.tip = toga.TextInput(
@@ -149,7 +149,7 @@ class TravelTips(toga.App):
         )
         self.my_currency = toga.Selection(
             items=[str(c) for c in CURRENCIES],
-            on_select=self.on_select,
+            on_change=self.on_change,
             style=Pack(flex=1),
         )
         my_box.add(self.my_currency)
