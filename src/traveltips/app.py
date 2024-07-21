@@ -1,6 +1,8 @@
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, BOLD, RIGHT, CENTER
+
+
 class Currency:
     def __init__(self, name, symbol, forex, format="%.2f"):
         self.name = name
