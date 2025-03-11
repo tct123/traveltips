@@ -17,8 +17,7 @@ sources = ["src/traveltips"]
 test_sources = ["tests"]
 
 requires = []
-icon = "src/traveltips/resources/traveltips"
-splash = "splash/traveltips"
+icon = "icons/traveltips"
 test_requires = ["pytest"]
 
 [tool.briefcase.app.traveltips.macOS]
