@@ -90,7 +90,6 @@ class TravelTips(toga.App):
         self.calculate()
 
     def startup(self):
-        toga.Font.register("Clayborn", "resources/Clayborn.ttf")
         self.main_window = toga.MainWindow(title=self.formal_name, size=(320, 568))
         box = toga.Box(style=Pack(direction=COLUMN, padding=5))
         local_box = toga.Box(style=Pack(padding=(20, 0, 5, 0), alignment=CENTER))
@@ -100,7 +99,6 @@ class TravelTips(toga.App):
                 style=Pack(
                     width=120,
                     padding_right=5,
-                    font_family="Clayborn",
                     font_size=16,
                     font_weight=BOLD,
                     text_align=RIGHT,
@@ -118,7 +116,7 @@ class TravelTips(toga.App):
             on_change=self.on_change,
             min=0,
             step="0.01",
-            style=Pack(font_family="Clayborn", font_size=48, text_align=RIGHT),
+            style=Pack(font_size=48, text_align=RIGHT),
         )
         box.add(self.amount)
         tip_box = toga.Box(style=Pack(padding_top=10))
@@ -142,7 +140,6 @@ class TravelTips(toga.App):
                 style=Pack(
                     width=120,
                     padding_right=5,
-                    font_family="Clayborn",
                     font_size=16,
                     font_weight=BOLD,
                     text_align=RIGHT,
@@ -158,7 +155,7 @@ class TravelTips(toga.App):
         box.add(my_box)
         self.my_amount = toga.TextInput(
             readonly=True,
-            style=Pack(font_family="Clayborn", font_size=48, text_align=RIGHT),
+            style=Pack(font_size=48, text_align=RIGHT),
         )
         box.add(self.my_amount)
         my_tip_box = toga.Box(style=Pack(padding_top=10))
