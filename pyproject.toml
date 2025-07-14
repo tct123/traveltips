@@ -1,31 +1,44 @@
-# This project was generated with 0.3.22 using template: https://github.com/beeware/briefcase-template@v0.3.22
+[build-system]
+requires = ["briefcase"]
+
 [tool.briefcase]
 project_name = "Travel Tips"
 bundle = "com.keith-magee"
-version = "1.2.0"
-url = "https://example.com/traveltips"
+version = "1.4.0"
 license.file = "LICENSE"
 author = "Russell Keith-Magee"
 author_email = "russell@keith-magee.com"
+requires = []
 
 [tool.briefcase.app.traveltips]
 formal_name = "Travel Tips"
-description = "My first application"
-long_description = """More details about the app should go here.
-"""
-icon = "traveltips.png"
+description = "Calculate tips in local currency while you're travelling"
+requires = [
+    # "../../toga/core",
+]
 sources = ["src/traveltips"]
-test_sources = ["tests"]
-
-requires = []
-test_requires = ["pytest"]
 
 [tool.briefcase.app.traveltips.macOS]
-universal_build = true
-requires = ["toga-cocoa~=0.4.9", "std-nslog~=1.0.3"]
+requires = [
+    # "../../toga/cocoa",
+    "toga-cocoa~=0.5.0",
+    "std-nslog~=1.0.0",
+]
+icon = "icons/macOS/traveltips"
+
+[tool.briefcase.app.traveltips.windows]
+requires = [
+    # "../../toga/winforms"
+    "toga-winforms~=0.5.0",
+]
+icon = "icons/windows/traveltips"
 
 [tool.briefcase.app.traveltips.linux]
-requires = ["toga-gtk~=0.4.9"]
+requires = [
+    # "../../toga/gtk"
+    "toga-gtk~=0.5.0",
+]
+icon = "icons/linux/traveltips"
 
 [tool.briefcase.app.traveltips.linux.system.debian]
 system_requires = [
@@ -36,14 +49,11 @@ system_requires = [
 ]
 
 system_runtime_requires = [
-    # Needed to provide GTK and its GI bindings
-    "gir1.2-gtk-3.0",
+    # Needed to provide GTK
+    "libgtk-3-0",
+    # Needed to provide GI bindings to GTK
     "libgirepository-1.0-1",
-    # Dependencies that GTK looks for at runtime
-    "libcanberra-gtk3-module",
-    # Needed to provide WebKit2 at runtime
-    # Note: Debian 11 and Ubuntu 20.04 require gir1.2-webkit2-4.0 instead
-    # "gir1.2-webkit2-4.1",
+    "gir1.2-gtk-3.0",
 ]
 
 [tool.briefcase.app.traveltips.linux.system.rhel]
@@ -59,30 +69,6 @@ system_runtime_requires = [
     "gobject-introspection",
     # Needed to provide GTK
     "gtk3",
-    # Dependencies that GTK looks for at runtime
-    "libcanberra-gtk3",
-    # Needed to provide WebKit2 at runtime
-    # "webkit2gtk3",
-]
-
-[tool.briefcase.app.traveltips.linux.system.suse]
-system_requires = [
-    # Needed to compile pycairo wheel
-    "cairo-devel",
-    # Needed to compile PyGObject wheel
-    "gobject-introspection-devel",
-]
-
-system_runtime_requires = [
-    # Needed to provide GTK
-    "gtk3",
-    # Needed to support Python bindings to GTK
-    "gobject-introspection",
-    "typelib(Gtk) = 3.0",
-    # Dependencies that GTK looks for at runtime
-    "libcanberra-gtk3-module",
-    # Needed to provide WebKit2 at runtime
-    # "libwebkit2gtk3", "typelib(WebKit2)",
 ]
 
 [tool.briefcase.app.traveltips.linux.system.arch]
@@ -97,8 +83,6 @@ system_requires = [
     "gtk3",
     # Dependencies that GTK looks for at runtime
     "libcanberra",
-    # Needed to provide WebKit2
-    # "webkit2gtk",
 ]
 
 system_runtime_requires = [
@@ -108,12 +92,10 @@ system_runtime_requires = [
     "gobject-introspection-runtime",
     # Dependencies that GTK looks for at runtime
     "libcanberra",
-    # Needed to provide WebKit2 at runtime
-    # "webkit2gtk",
 ]
 
 [tool.briefcase.app.traveltips.linux.appimage]
-manylinux = "manylinux_2_28"
+manylinux = "manylinux2014"
 
 system_requires = [
     # Needed to compile pycairo wheel
@@ -128,100 +110,108 @@ system_requires = [
     "PackageKit-gtk3-module",
     "gvfs-client",
 ]
-
-linuxdeploy_plugins = ["DEPLOY_GTK_VERSION=3 gtk"]
+linuxdeploy_plugins = [
+    "DEPLOY_GTK_VERSION=3 gtk",
+]
 
 [tool.briefcase.app.traveltips.linux.flatpak]
+
 flatpak_runtime = "org.gnome.Platform"
-flatpak_runtime_version = "47"
+flatpak_runtime_version = "44"
 flatpak_sdk = "org.gnome.Sdk"
 
-[tool.briefcase.app.traveltips.windows]
-requires = ["toga-winforms~=0.4.9"]
-
-# Mobile deployments
 [tool.briefcase.app.traveltips.iOS]
-requires = ["toga-iOS~=0.4.9", "std-nslog~=1.0.3"]
+requires = [
+    # "../../toga/iOS",
+    "toga-iOS~=0.5.0",
+    "std-nslog~=1.0.0",
+]
+icon = "icons/iOS/traveltips"
+
+# support_package = "../../support/Python-Apple-support/dist/Python-3.13-iOS-support.custom.tar.gz"
+# template = "../../templates/briefcase-iOS-Xcode-template"
+
 cleanup_paths = [
-    "Support/python-stdlib/lib-dynload/_bisect.*.dylib",
-    "Support/python-stdlib/lib-dynload/_blake2.*.dylib",
-    "Support/python-stdlib/lib-dynload/_bz2.*.dylib",
-    "Support/python-stdlib/lib-dynload/_codecs_cn.*.dylib",
-    "Support/python-stdlib/lib-dynload/_codecs_hk.*.dylib",
-    "Support/python-stdlib/lib-dynload/_codecs_iso2022.*.dylib",
-    "Support/python-stdlib/lib-dynload/_codecs_jp.*.dylib",
-    "Support/python-stdlib/lib-dynload/_codecs_kr.*.dylib",
-    "Support/python-stdlib/lib-dynload/_codecs_tw.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_contextvars.*.dylib",
-    "Support/python-stdlib/lib-dynload/_crypt.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_csv.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_ctypes.*.dylib",
-    "Support/python-stdlib/lib-dynload/_ctypes_test.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_datetime.*.dylib",
-    "Support/python-stdlib/lib-dynload/_dbm.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_decimal.*.dylib",
-    "Support/python-stdlib/lib-dynload/_elementtree.*.dylib",
-    "Support/python-stdlib/lib-dynload/_hashlib.*.dylib",
-    "Support/python-stdlib/lib-dynload/_heapq.*.dylib",
-    "Support/python-stdlib/lib-dynload/_json.*.dylib",
-    "Support/python-stdlib/lib-dynload/_lsprof.*.dylib",
-    "Support/python-stdlib/lib-dynload/_lzma.*.dylib",
-    "Support/python-stdlib/lib-dynload/_md5.*.dylib",
-    "Support/python-stdlib/lib-dynload/_multibytecodec.*.dylib",
-    "Support/python-stdlib/lib-dynload/_opcode.*.dylib",
-    "Support/python-stdlib/lib-dynload/_pickle.*.dylib",
-    "Support/python-stdlib/lib-dynload/_queue.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_random.*.dylib",
-    "Support/python-stdlib/lib-dynload/_sha1.*.dylib",
-    "Support/python-stdlib/lib-dynload/_sha256.*.dylib",
-    "Support/python-stdlib/lib-dynload/_sha3.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_sha512.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_socket.*.dylib",
-    "Support/python-stdlib/lib-dynload/_sqlite3.*.dylib",
-    "Support/python-stdlib/lib-dynload/_ssl.*.dylib",
-    "Support/python-stdlib/lib-dynload/_statistics.*.dylib",
-    # "Support/python-stdlib/lib-dynload/_struct.*.dylib",
-    "Support/python-stdlib/lib-dynload/_testbuffer.*.dylib",
-    "Support/python-stdlib/lib-dynload/_testcapi.*.dylib",
-    "Support/python-stdlib/lib-dynload/_testclinic.*.dylib",
-    "Support/python-stdlib/lib-dynload/_testimportmultiple.*.dylib",
-    "Support/python-stdlib/lib-dynload/_testinternalcapi.*.dylib",
-    "Support/python-stdlib/lib-dynload/_testmultiphase.*.dylib",
-    "Support/python-stdlib/lib-dynload/_typing.*.dylib",
-    "Support/python-stdlib/lib-dynload/_uuid.*.dylib",
-    "Support/python-stdlib/lib-dynload/_xxtestfuzz.*.dylib",
-    "Support/python-stdlib/lib-dynload/_zoneinfo.*.dylib",
-    # "Support/python-stdlib/lib-dynload/array.*.dylib",
-    "Support/python-stdlib/lib-dynload/audioop.*.dylib",
-    # "Support/python-stdlib/lib-dynload/binascii.*.dylib",
-    # "Support/python-stdlib/lib-dynload/cmath.*.dylib",
-    # "Support/python-stdlib/lib-dynload/fcntl.*.dylib",
-    # "Support/python-stdlib/lib-dynload/math.*.dylib",
-    "Support/python-stdlib/lib-dynload/mmap.*.dylib",
-    "Support/python-stdlib/lib-dynload/pyexpat.*.dylib",
-    "Support/python-stdlib/lib-dynload/resource.*.dylib",
-    # "Support/python-stdlib/lib-dynload/select.*.dylib",
-    "Support/python-stdlib/lib-dynload/termios.*.dylib",
-    "Support/python-stdlib/lib-dynload/unicodedata.*.dylib",
-    "Support/python-stdlib/lib-dynload/xxlimited.*.dylib",
-    "Support/python-stdlib/lib-dynload/xxlimited_35.*.dylib",
-    "Support/python-stdlib/lib-dynload/zlib.*.dylib",
+    # "Support/**/lib-dynload/_asyncio.*.so*",
+    "Support/**/lib-dynload/_bisect.*.so*",
+    # "Support/**/lib-dynload/_blake2.*.so*",
+    "Support/**/lib-dynload/_bz2.*.so*",
+    "Support/**/lib-dynload/_codecs_cn.*.so*",
+    "Support/**/lib-dynload/_codecs_hk.*.so*",
+    "Support/**/lib-dynload/_codecs_iso2022.*.so*",
+    "Support/**/lib-dynload/_codecs_jp.*.so*",
+    "Support/**/lib-dynload/_codecs_kr.*.so*",
+    "Support/**/lib-dynload/_codecs_tw.*.so*",
+    # "Support/**/lib-dynload/_contextvars.*.so*",
+    "Support/**/lib-dynload/_crypt.*.so*",
+    # "Support/**/lib-dynload/_csv.*.so*",
+    # "Support/**/lib-dynload/_ctypes.*.so*",
+    "Support/**/lib-dynload/_ctypes_test.*.so*",
+    # "Support/**/lib-dynload/_datetime.*.so*",
+    "Support/**/lib-dynload/_dbm.*.so*",
+    # "Support/**/lib-dynload/_decimal.*.so*",
+    "Support/**/lib-dynload/_interpchannels.*.so*",
+    "Support/**/lib-dynload/_interpqueues.*.so*",
+    "Support/**/lib-dynload/_interpreters.*.so*",
+    "Support/**/lib-dynload/_elementtree.*.so*",
+    # "Support/**/lib-dynload/_hashlib.*.so*",
+    "Support/**/lib-dynload/_heapq.*.so*",
+    "Support/**/lib-dynload/_json.*.so*",
+    "Support/**/lib-dynload/_lsprof.*.so*",
+    "Support/**/lib-dynload/_lzma.*.so*",
+    # "Support/**/lib-dynload/_md5.*.so*",
+    "Support/**/lib-dynload/_multibytecodec.*.so*",
+    # "Support/**/lib-dynload/_opcode.*.so*",
+    "Support/**/lib-dynload/_pickle.*.so*",
+    "Support/**/lib-dynload/_queue.*.so*",
+    # "Support/**/lib-dynload/_random.*.so*",
+    # "Support/**/lib-dynload/_sha1.*.so*",
+    # "Support/**/lib-dynload/_sha2.*.so*",
+    # "Support/**/lib-dynload/_sha3.*.so*",
+    # "Support/**/lib-dynload/_sha512.*.so*",
+    # "Support/**/lib-dynload/_socket.*.so*",
+    "Support/**/lib-dynload/_sqlite3.*.so*",
+    # "Support/**/lib-dynload/_ssl.*.so*",
+    "Support/**/lib-dynload/_statistics.*.so*",
+    # "Support/**/lib-dynload/_struct.*.so*",
+    "Support/**/lib-dynload/_test*.*.so*",
+    "Support/**/lib-dynload/_typing.*.so*",
+    "Support/**/lib-dynload/_uuid.*.so*",
+    "Support/**/lib-dynload/_xxtestfuzz.*.so*",
+    "Support/**/lib-dynload/_zoneinfo.*.so*",
+    # "Support/**/lib-dynload/array.*.so*",
+    "Support/**/lib-dynload/audioop.*.so*",
+    # "Support/**/lib-dynload/binascii.*.so*",
+    # "Support/**/lib-dynload/cmath.*.so*",
+    # "Support/**/lib-dynload/fcntl.*.so*",
+    # "Support/**/lib-dynload/math.*.so*",
+    "Support/**/lib-dynload/mmap.*.so*",
+    "Support/**/lib-dynload/pyexpat.*.so*",
+    "Support/**/lib-dynload/resource.*.so*",
+    # "Support/**/lib-dynload/select.*.so*",
+    "Support/**/lib-dynload/termios.*.so*",
+    "Support/**/lib-dynload/unicodedata.*.so*",
+    "Support/**/lib-dynload/xx*.*.so*",
+    "Support/**/lib-dynload/zlib.*.so*",
+    "Support/**/lib/**/test",
 ]
 
 [tool.briefcase.app.traveltips.android]
-requires = ["toga-android~=0.4.9"]
-
-base_theme = "Theme.MaterialComponents.Light.DarkActionBar"
-
+requires = [
+    # "../../toga/android"
+    "toga-android~=0.5.0",
+]
 build_gradle_dependencies = [
-    "com.google.android.material:material:1.12.0",
-    # Needed for DetailedList
-    "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0",
-    # Needed for MapView
-    "org.osmdroid:osmdroid-android:6.1.20",
+    "androidx.appcompat:appcompat:1.6.1",
+    "com.google.android.material:material:1.11.0",
 ]
 
-# Web deployments
+icon = "icons/android/traveltips"
+
 [tool.briefcase.app.traveltips.web]
-requires = ["toga-web~=0.4.9"]
+
+requires = [
+    "toga-web~=0.5.0",
+]
 style_framework = "Shoelace v2.3"
+icon = "icons/web/traveltips"
